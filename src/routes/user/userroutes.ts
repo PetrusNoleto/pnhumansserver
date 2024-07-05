@@ -21,6 +21,7 @@ userRoutes.post('/user/auth/',async (req:Request,res:Response)=>{
         const auth = await userController.auth(requestUserName,requestUserPassword)
         if(auth.user !== null){
             const generateToken = jwt.sign(auth.user, '123')
+            console.log(generateToken)
             return res.status(auth.code).json({code:auth.code,message:auth.message,token:generateToken})
         }
         return res.status(404).json('not authenticated')
@@ -43,9 +44,11 @@ userRoutes.post('/user/auth/token/',async (req:Request,res:Response)=>{
     }
     const decodedUser = decodeJwt(token);
     if (decodedUser) {
-
         return res.json(decodedUser)
     } else {
         return res.json('JWT inválido ou expirado.');
     }
 })
+
+
+
