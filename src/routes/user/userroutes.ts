@@ -32,3 +32,24 @@ userRoutes.post('/user/auth/',async (req:Request,res:Response)=>{
         res.status(400).json("dados da requisição incorretas")
     }
 })
+
+userRoutes.post('/user/auth/token/',async (req:Request,res:Response)=>{
+    const {authorization} = req.headers
+    const secretKey = '123';
+    const token = authorization as string;
+    function decodeJwt(token: string): { userId: string} | null {
+        try {
+            return (jwt.verify(token, secretKey) as { userId: string });
+        } catch (error) {
+            console.log(error)
+            return null;
+        }
+    }
+    const decodedUser = decodeJwt(token);
+    if (decodedUser) {
+        
+        return res.json(decodedUser)
+    } else {
+        return res.json('JWT inválido ou expirado.');
+    }
+})
