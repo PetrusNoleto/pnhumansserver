@@ -8,10 +8,6 @@ userRoutes.post('/user/create/',async (req:Request,res:Response)=>{
     if(requestUserName && requestUserName !== "" && requestUserPassword && requestUserPassword !== ""){
         const userController = new User()
         const create = await userController.create(requestUserName,requestUserPassword)
-        // if(create.user !== null){
-        //     const generateToken = jwt.sign(create.user, '123')
-        //     return res.status(create.code).json(generateToken)
-        // }
         return res.status(create.code).json(create.message)
     }else{
         res.status(400).json("dados da requisição incorretas")
@@ -47,7 +43,7 @@ userRoutes.post('/user/auth/token/',async (req:Request,res:Response)=>{
     }
     const decodedUser = decodeJwt(token);
     if (decodedUser) {
-        
+
         return res.json(decodedUser)
     } else {
         return res.json('JWT inválido ou expirado.');

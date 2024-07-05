@@ -1,4 +1,5 @@
 import {UserDatabase} from "../models/user";
+import CryptoAES from 'crypto-js/aes';
 
 interface  responseProps{
     code:number
@@ -22,7 +23,9 @@ export class User{
             const databaseUser = new UserDatabase()
             const verify = await databaseUser.verifyExists(this.username)
             if(verify.message === "usuario não existe!"){
-                return await databaseUser.create(this.username,this.userPassword) as responseProps
+                const encryptedPassword = CryptoAES.encrypt(this.userPassword , '123');
+
+                return await databaseUser.create(this.username,encryptedPassword.toString()) as responseProps
             }else{
                 return verify as responseProps
             }
@@ -37,7 +40,13 @@ export class User{
             const databaseUser = new UserDatabase()
             const verify = await databaseUser.verifyExists(this.username)
             if(verify.message === "usuario já existe!"){
+
+
+
                 return await databaseUser.auth(this.username,this.userPassword) as responseProps
+
+
+
             }else{
                 return verify as responseProps
             }

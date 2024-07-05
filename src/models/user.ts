@@ -1,3 +1,5 @@
+import CryptoENC from 'crypto-js/enc-utf8';
+import CryptoAES from 'crypto-js/aes';
 import {databaseConnection} from "./connect";
 
 
@@ -59,8 +61,13 @@ export class UserDatabase {
                 }
             })
             if(getUser){
+                const databasePassword = getUser.password as string
+                const decryptPassword = CryptoAES.decrypt(databasePassword, '123').toString(CryptoENC);
+                console.log(decryptPassword)
+                console.log(this.userPassword)
+
                 const verifyUsername = (this.userName === getUser.username)
-                const verifyPassword = (this.userPassword === getUser.password)
+                const verifyPassword = (this.userPassword === decryptPassword)
                 if(verifyUsername && verifyPassword){
                     return {code:200,message:"usuario authenticado!",user:getUser.id}
                 }else{
