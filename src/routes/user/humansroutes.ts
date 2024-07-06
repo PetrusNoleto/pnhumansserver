@@ -1,13 +1,14 @@
 import {Router,Request,Response} from "express"
 import jwt from 'jsonwebtoken';
 import {HumansController} from "../../controllers/humanscontroller";
+import {jwtSecretKey} from "../../static/variables";
 
 
 
 
 export const humanRoutes = Router()
 const human = new HumansController()
-
+const secretKey = jwtSecretKey;
 humanRoutes.post('/human/create/',async (req:Request,res:Response)=>{
     const {
             requestName,
@@ -30,7 +31,7 @@ humanRoutes.post('/human/create/',async (req:Request,res:Response)=>{
             requestUserName,
             requestPassword
     } = req.body
-    const secretKey = '123';
+
     const token = req.headers.authorization as string
     function decodeJwt(token: string){
         try {
@@ -73,7 +74,6 @@ humanRoutes.post('/human/create/',async (req:Request,res:Response)=>{
 })
 humanRoutes.post('/humans/',async (req:Request,res:Response)=>{
     const token = req.headers.authorization
-    const secretKey = '123';
     if(token !== undefined){
         function decodeJwt(token: string){
             try {
