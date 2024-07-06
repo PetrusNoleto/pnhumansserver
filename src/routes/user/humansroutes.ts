@@ -3,9 +3,6 @@ import jwt from 'jsonwebtoken';
 import {HumansController} from "../../controllers/humanscontroller";
 import {jwtSecretKey} from "../../static/variables";
 
-
-
-
 export const humanRoutes = Router()
 const human = new HumansController()
 const secretKey = jwtSecretKey;
@@ -37,13 +34,12 @@ humanRoutes.post('/human/create/',async (req:Request,res:Response)=>{
         try {
             return jwt.verify(token, secretKey);
         } catch (error) {
-            console.log(error)
+            console.error(error)
             return null;
         }
     }
     const decodedUser = decodeJwt(token);
     if (decodedUser) {
-
         const requestUserId = decodedUser as string
         const createHuman = await human.create({
             requestUserId,
@@ -79,13 +75,12 @@ humanRoutes.post('/humans/',async (req:Request,res:Response)=>{
             try {
                 return jwt.verify(token, secretKey);
             } catch (error) {
-                console.log(error)
+                console.error(error)
                 return null;
             }
         }
         const decodedUser = decodeJwt(token);
         const userToken = decodedUser as string
-        console.log(userToken)
         if (decodedUser) {
             const getHumans = await human.listAll(userToken)
             return res.json(getHumans)

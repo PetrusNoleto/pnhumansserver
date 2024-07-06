@@ -27,7 +27,7 @@ export class UserDatabase {
                return  {code:404,message: "usuario não existe!",user:null}
            }
        }catch (error){
-           console.log(error)
+           console.error(error)
            return {code:500,message: "não foi possivel verificar o usuario!",user:null}
        }
    }
@@ -43,7 +43,7 @@ export class UserDatabase {
             })
             return {code:203,message:"usuario criado com sucesso!",user:createUser.id}
         }catch (error){
-            console.log(error)
+            console.error(error)
             return {code:400,message:"não foi possivel criar o usuario!",user:null}
         }
     }
@@ -64,9 +64,6 @@ export class UserDatabase {
             if(getUser){
                 const databasePassword = getUser.password as string
                 const decryptPassword = CryptoAES.decrypt(databasePassword, databaseSecretKet).toString(CryptoENC);
-                console.log(decryptPassword)
-                console.log(this.userPassword)
-
                 const verifyUsername = (this.userName === getUser.username)
                 const verifyPassword = (this.userPassword === decryptPassword)
                 if(verifyUsername && verifyPassword){
@@ -78,6 +75,7 @@ export class UserDatabase {
                 return {code:500,message:"não foi possivel authenticar!",user:null}
             }
         }catch (error){
+            console.error(error)
             return {code:500,message:"não foi possivel authenticar!",user:null}
         }
     }

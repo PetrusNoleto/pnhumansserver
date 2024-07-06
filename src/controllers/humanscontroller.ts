@@ -70,7 +70,6 @@ export class HumansController {
                             requestUserName,
                             requestPassword
                         }:requestTypes){
-        console.log(requestUserId)
         this.userId = requestUserId
         this.humanName = requestName
         this.humanLastName = requestLastName
@@ -118,7 +117,7 @@ export class HumansController {
             })
             return "humano criado com sucesso"
         }catch (error){
-            console.log(error)
+            console.error(error)
             return "não foi possivel criar seu humano"
         }
 
@@ -134,6 +133,7 @@ export class HumansController {
             return getHumans
         }
         catch (error){
+            console.error(error)
             return "não foi possivel listar os humanos"
         }
     }

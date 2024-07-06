@@ -29,6 +29,7 @@ export class User{
                 return verify as responseProps
             }
             }catch (error){
+               console.error(error)
                return {code:500,message:"não foi possivel criar o usuario!",user:null} as responseProps
             }
     }
@@ -44,6 +45,7 @@ export class User{
                 return verify as responseProps
             }
         }catch (error){
+            console.error(error)
             return {code:500,message:"não foi possivel criar o usuario!",user:null} as responseProps
         }
     }
