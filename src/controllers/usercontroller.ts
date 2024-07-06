@@ -1,12 +1,12 @@
 import {UserDatabase} from "../models/userDatabase";
 import CryptoAES from 'crypto-js/aes';
+import {databaseSecretKet} from "../static/variables";
 
 interface  responseProps{
     code:number
     message:string
     user:string | null
 }
-
 export class User{
     private userid:string
     private username:string
@@ -23,8 +23,7 @@ export class User{
             const databaseUser = new UserDatabase()
             const verify = await databaseUser.verifyExists(this.username)
             if(verify.message === "usuario não existe!"){
-                const encryptedPassword = CryptoAES.encrypt(this.userPassword , '123');
-
+                const encryptedPassword = CryptoAES.encrypt(this.userPassword , databaseSecretKet);
                 return await databaseUser.create(this.username,encryptedPassword.toString()) as responseProps
             }else{
                 return verify as responseProps
@@ -40,13 +39,7 @@ export class User{
             const databaseUser = new UserDatabase()
             const verify = await databaseUser.verifyExists(this.username)
             if(verify.message === "usuario já existe!"){
-
-
-
                 return await databaseUser.auth(this.username,this.userPassword) as responseProps
-
-
-
             }else{
                 return verify as responseProps
             }

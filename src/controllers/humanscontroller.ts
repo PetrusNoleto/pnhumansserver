@@ -116,7 +116,6 @@ export class HumansController {
                     identification:this.humanIdentification
                 }
             })
-
             return "humano criado com sucesso"
         }catch (error){
             console.log(error)

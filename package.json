@@ -1,11 +1,11 @@
 {
   "name": "pnhumansserver",
-  "version": "0.0.1",
-  "main": "index.js",
+  "version": "0.1.2",
+  "main": "./dist/server.js",
   "scripts": {
     "dev": "ts-node-dev ./src/server.ts"
   },
-  "author": "",
+  "author": "petrus noleto",
   "license": "ISC",
   "description": "",
   "dependencies": {

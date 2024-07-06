@@ -1,6 +1,7 @@
 import CryptoENC from 'crypto-js/enc-utf8';
 import CryptoAES from 'crypto-js/aes';
 import {databaseConnection} from "./connect";
+import {databaseSecretKet} from "../static/variables";
 
 
 export class UserDatabase {
@@ -62,7 +63,7 @@ export class UserDatabase {
             })
             if(getUser){
                 const databasePassword = getUser.password as string
-                const decryptPassword = CryptoAES.decrypt(databasePassword, '123').toString(CryptoENC);
+                const decryptPassword = CryptoAES.decrypt(databasePassword, databaseSecretKet).toString(CryptoENC);
                 console.log(decryptPassword)
                 console.log(this.userPassword)
 

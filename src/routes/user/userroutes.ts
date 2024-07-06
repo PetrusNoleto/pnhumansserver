@@ -1,8 +1,12 @@
 import {Router,Request,Response} from "express"
 import jwt from 'jsonwebtoken';
 import {User} from "../../controllers/usercontroller";
+import {jwtSecretKey} from "../../static/variables";
 
 export const userRoutes = Router()
+
+const jwtKey = jwtSecretKey;
+
 userRoutes.post('/user/create/',async (req:Request,res:Response)=>{
     const {requestUserName,requestUserPassword} = req.body
     if(requestUserName && requestUserName !== "" && requestUserPassword && requestUserPassword !== ""){
@@ -13,14 +17,13 @@ userRoutes.post('/user/create/',async (req:Request,res:Response)=>{
         res.status(400).json("dados da requisição incorretas")
     }
 })
-
 userRoutes.post('/user/auth/',async (req:Request,res:Response)=>{
     const {requestUserName,requestUserPassword} = req.body
     if(requestUserName && requestUserName !== "" && requestUserPassword && requestUserPassword !== ""){
         const userController = new User()
         const auth = await userController.auth(requestUserName,requestUserPassword)
         if(auth.user !== null){
-            const generateToken = jwt.sign(auth.user, '123')
+            const generateToken = jwt.sign(auth.user, jwtKey)
             console.log(generateToken)
             return res.status(auth.code).json({code:auth.code,message:auth.message,token:generateToken})
         }
@@ -32,11 +35,11 @@ userRoutes.post('/user/auth/',async (req:Request,res:Response)=>{
 
 userRoutes.post('/user/auth/token/',async (req:Request,res:Response)=>{
     const {authorization} = req.headers
-    const secretKey = '123';
+
     const token = authorization as string;
     function decodeJwt(token: string): { userId: string} | null {
         try {
-            return (jwt.verify(token, secretKey) as { userId: string });
+            return (jwt.verify(token, jwtKey) as { userId: string });
         } catch (error) {
             console.log(error)
             return null;
