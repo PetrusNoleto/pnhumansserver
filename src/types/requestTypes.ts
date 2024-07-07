@@ -1,0 +1,22 @@
+export  interface requestTypes {
+    requestUserId:string,
+    requestName:string,
+    requestLastName:string,
+    requestGender:string,
+    requestAge:number,
+    requestPhone:string,
+    requestCell:string,
+    requestEmail:string,
+    requestCountry:string,
+    requestState:string,
+    requestCity:string,
+    requestStreetName:string,
+    requestStreetNumber:string,
+    requestPostcode:number,
+    requestLatitude:string,
+    requestLongitude:string,
+    requestIdentification:string,
+    requestPicture:string,
+    requestUserName:string,
+    requestPassword:string
+}
