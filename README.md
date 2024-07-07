@@ -1,4 +1,4 @@
-# Documentação PNHUMANS - SERVER API  v0.1.2
+# Documentação PNHUMANS - SERVER  v0.1.2
 
 ## status = descontinuado
 
@@ -36,7 +36,7 @@ Feche o terminal caso esteja usando linux no modo interface(**Desktop**), caso e
 Agora teste se a instalação deu certo.
 
 ```bash
-node -v # should print `v20.14.0` 
+node -v
 ```
 
 ## Configurando Variáveis de Ambiente
@@ -47,7 +47,7 @@ crie um arquivo na raiz do protejo chamando **.env** dentro do arquivo coloque a
 API_PORT = "4700"
 ```
 
-Essa e a configuração da porta da API, escolha uma porta que não esteja em uso e que não corra o risco de nenhuma outra aplicação usar pois pode ocorrer o risco da API desligar nesse processo ou na próxima vez que ela for iniciada ocorra algum erro.
+Essa e a configuração da porta do servidor, escolha uma porta que não esteja em uso e que não corra o risco de nenhuma outra aplicação usar pois pode ocorrer o risco da API desligar nesse processo ou na próxima vez que ela for iniciada ocorra algum erro.
 
 ```
 DATABASE_URL = "file:../database/dev.db"
@@ -65,11 +65,11 @@ DATABASE_KEY = "1234"
 ```
 Essa é a configuração da secretkey de criptografia do usuario no banco de dados.
 
-Após essa configuração a API está pronta para ser inicializada
+Após essa configuração o servidor está pronta para ser inicializada
 
-## Inicializando a API
+## Inicializando o server
 
-Para inicializar a API digite o seguinte comando no terminal
+Para inicializar o servidor digite o seguinte comando no terminal
 
 ```bash
 npm run deploy
